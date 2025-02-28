@@ -5,82 +5,154 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Produto</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f7fa;
+        /* Reset básico */
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+            padding-bottom: 40px;
+        }
+
         header {
-            background-color: #34495e;
-            color: #fff;
-            padding: 20px;
+            background-color: #fff;
+            padding: 30px 20px;
             text-align: center;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            margin-bottom: 40px;
         }
+
+        header h1 {
+            margin-bottom: 20px;
+            font-size: 2.2em;
+            color: #333;
+            font-weight: 500;
+        }
+
         header a {
-            color: #fff;
+            color: #4e73df;
             text-decoration: none;
-            font-weight: bold;
-            margin-top: 10px;
-            display: inline-block;
+            font-weight: 500;
+            font-size: 0.95em;
+            transition: color 0.2s ease;
         }
+
+        header a:hover {
+            color: #375dc2;
+        }
+
         form {
             max-width: 600px;
-            margin: 40px auto;
-            padding: 20px;
+            margin: 0 auto;
+            padding: 30px;
             background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
             border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
         label {
             display: block;
-            margin: 10px 0 5px;
-            font-size: 14px;
-            color: #34495e;
+            margin-bottom: 8px;
+            font-size: 0.9em;
+            color: #555;
+            font-weight: 500;
         }
+
         input[type="text"],
         input[type="number"] {
             width: 100%;
-            padding: 10px;
-            margin: 10px 0 20px;
-            border: 1px solid #ccc;
+            padding: 12px;
+            border: 1px solid #e1e5eb;
             border-radius: 4px;
-            box-sizing: border-box;
+            font-size: 1em;
+            transition: border-color 0.2s ease;
         }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus {
+            border-color: #4e73df;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(78, 115, 223, 0.1);
+        }
+
         button {
-            background-color: #3498db;
+            background-color: #4e73df;
             color: #fff;
             border: none;
-            padding: 12px;
+            padding: 14px;
             border-radius: 4px;
+            font-size: 1em;
+            font-weight: 500;
             cursor: pointer;
             width: 100%;
-            font-size: 16px;
+            transition: all 0.2s ease;
         }
+
         button:hover {
-            background-color: #2980b9;
+            background-color: #375dc2;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            form {
+                margin: 0 15px;
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            input[type="text"],
+            input[type="number"] {
+                padding: 10px;
+            }
+
+            button {
+                padding: 12px;
+            }
         }
     </style>
 </head>
 <body>
 <header>
     <h1>Editar Produto</h1>
-    <a href="/produtos/">Voltar para a lista de produtos</a>
+    <a href="/produtos/">← Voltar para a lista de produtos</a>
 </header>
 
 <form action="/produtos/editar" method="post">
     <input type="hidden" name="id" th:value="${produto.id}">
 
-    <label for="nome">Nome:</label>
-    <input type="text" id="nome" name="nome" th:value="${produto.nome}" required><br>
+    <div class="form-group">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" th:value="${produto.nome}" required>
+    </div>
 
-    <label for="descricao">Descrição:</label>
-    <input type="text" id="descricao" name="descricao" th:value="${produto.descricao}" required><br>
+    <div class="form-group">
+        <label for="descricao">Descrição:</label>
+        <input type="text" id="descricao" name="descricao" th:value="${produto.descricao}" required>
+    </div>
 
-    <label for="preco">Preço:</label>
-    <input type="number" id="preco" name="preco" th:value="${produto.preco}" step="0.01" required><br>
+    <div class="form-group">
+        <label for="preco">Preço:</label>
+        <input type="number" id="preco" name="preco" th:value="${produto.preco}" step="0.01" required>
+    </div>
 
-    <button type="submit">Salvar</button>
+    <button type="submit">Salvar Alterações</button>
 </form>
 </body>
 </html>

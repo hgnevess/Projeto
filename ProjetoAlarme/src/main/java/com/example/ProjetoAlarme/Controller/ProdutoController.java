@@ -52,7 +52,7 @@ public class ProdutoController {
 
     @GetMapping("/deletar/{id}")
     public String deletarProduto(@PathVariable("id") int id) {
-        produtoRepository.deleteById(id); 
+        produtoRepository.deleteById(id);
         return "redirect:/produtos/";
     }
 }
