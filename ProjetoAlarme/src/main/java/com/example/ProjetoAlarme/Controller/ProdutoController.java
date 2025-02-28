@@ -14,15 +14,11 @@ public class ProdutoController {
     @Autowired
     private InterFaceRepository produtoRepository;
 
-
-
     @GetMapping("/")
     public String listarProdutos(Model model) {
         model.addAttribute("produtos", produtoRepository.findAll());
         return "index";
     }
-
-
 
     @GetMapping("/adicionar")
     public String adicionarProdutoForm(Model model) {
@@ -30,19 +26,17 @@ public class ProdutoController {
         return "adicionarProduto";
     }
 
-
-
     @PostMapping("/adicionar")
     public String adicionarProduto(@ModelAttribute Produto produto) {
-        produtoRepository.save(produto);
+        if (produto != null && produto.getNome() != null && produto.getPreco() > 0) {
+            produtoRepository.save(produto);
+        }
         return "redirect:/produtos/";
     }
 
-
-
     @GetMapping("/editar/{id}")
     public String editarProdutoForm(@PathVariable("id") int id, Model model) {
-        Produto produto = produtoRepository.findById(id).orElse(null); // Usando produtoRepository
+        Produto produto = produtoRepository.findById(id).orElse(null);
         if (produto != null) {
             model.addAttribute("produto", produto);
             return "editarProduto";
@@ -50,19 +44,15 @@ public class ProdutoController {
         return "redirect:/produtos/";
     }
 
-
-
     @PostMapping("/editar")
     public String editarProduto(@ModelAttribute Produto produto) {
         produtoRepository.save(produto);
         return "redirect:/produtos/";
     }
 
-
-
     @GetMapping("/deletar/{id}")
     public String deletarProduto(@PathVariable("id") int id) {
-        produtoRepository.deleteById(id);
+        produtoRepository.deleteById(id); 
         return "redirect:/produtos/";
     }
 }
